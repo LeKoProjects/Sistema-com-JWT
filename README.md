@@ -4,15 +4,13 @@ Este projeto é um sistema de autenticação baseado em JWT (JSON Web Token). El
 
 ## Índice
 
-2. [Tecnologias Utilizadas](#tecnologias-utilizadas)
-3. [Pré-requisitos](#pré-requisitos)
-4. [Instalação](#instalação)
-5. [Configuração](#configuração)
-6. [Funcionalidades do Sistema](#funcionalidades-do-sistema)
-7. [Rotas da API](#rotas-da-api)
-8. [Front-end e Comunicação com o Back-end](#front-end-e-comunicação-com-o-back-end)
-9. [Critérios de Avaliação](#critérios-de-avaliação)
-10. [Licença](#licença)
+1. [Tecnologias Utilizadas](#tecnologias-utilizadas)
+2. [Pré-requisitos](#pré-requisitos)
+3. [Instalação](#instalação)
+4. [Configuração](#configuração)
+5. [Funcionalidades do Sistema](#funcionalidades-do-sistema)
+6. [Rotas da API](#rotas-da-api)
+7. [Front-end e Comunicação com o Back-end](#front-end-e-comunicação-com-o-back-end)
 
 
 ## Tecnologias Utilizadas
@@ -72,6 +70,9 @@ Este projeto é um sistema de autenticação baseado em JWT (JSON Web Token). El
    php artisan serve
    ```
    - O servidor estará disponível em `http://localhost:8000`.
+   - 
+3. **Inicie o FrontEnd**
+   - O front-end pode ser iniciado utilizando a extensão Live Server do VS Code.
 
 ## Funcionalidades do Sistema
 
