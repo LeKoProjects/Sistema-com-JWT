@@ -19,10 +19,23 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
         window.location.href = 'login.html';
 
     } catch (error) {
-        // console.error(error);
-        alert("Erro no registro. Verifique os dados e tente novamente.");
+        if (error.response && error.response.status === 422) {
+            // Verifique os detalhes do erro para mensagens específicas
+            const errors = error.response.data.errors;
+            if (errors.name) {
+                alert("Nome já cadastrado. Por favor, escolha outro.");
+            } else if (errors.email) {
+                alert("Email já cadastrado. Por favor, escolha outro.");
+            } else {
+                alert("Erro no registro. Verifique os dados e tente novamente.");
+            }
+        } else {
+            console.error(error);
+            alert("Erro no registro. Verifique os dados e tente novamente.");
+        }
     }
 });
+
 
 async function logoutUser() {
     const token = localStorage.getItem('token');

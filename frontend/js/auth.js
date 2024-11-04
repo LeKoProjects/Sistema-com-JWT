@@ -1,5 +1,7 @@
 const apiBaseUrl = 'http://localhost:8000/api';
 
+axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -14,20 +16,20 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 
         sessionStorage.setItem('token', response.data.token);
         alert("Login realizado com sucesso!");
-        window.location.href = 'index.html';
+        window.location.href = '/index.html';
 
     } catch (error) {
-        // console.error(error);
+        console.error(error);
         alert("Erro no login. Verifique as credenciais e tente novamente.");
     }
 });
 
+// Função de logout
 async function logoutUser() {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
 
     if (!token) {
-        alert("Token ausente. Faça login novamente.");
-        window.location.href = 'login.html';
+        alert("Você não está logado.");
         return;
     }
 
@@ -40,15 +42,22 @@ async function logoutUser() {
 
         sessionStorage.removeItem('token');
         alert("Logout realizado com sucesso!");
-
+        window.location.href = '/views/login.html';
     } catch (error) {
-        // console.error(error);
+        console.error("Erro ao realizar logout:", error);
         alert("Erro ao realizar logout. Tente novamente.");
     }
 }
 
+// Função para acessar rota protegida
 async function accessProtectedRoute() {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
+
+    if (!token) {
+        alert("Você precisa estar logado para acessar esta rota.");
+        window.location.href = '/views/login.html';
+        return;
+    }
 
     try {
         const response = await axios.get(`${apiBaseUrl}/protected`, {
@@ -57,30 +66,13 @@ async function accessProtectedRoute() {
             }
         });
 
-        alert('Usuário Autenticado');
-
+    alert(response.data.message);
     } catch (error) {
         if (error.response && error.response.status === 401) {
-            alert("Você não tem permissão para acessar esta rota.");
+            alert("Acesso negado. Você não tem permissão para acessar esta rota.");
+            window.location.href = '/views/login.html';
         } else {
-            // console.error(error);
+            console.error("Erro ao acessar rota protegida:", error);
         }
     }
 }
-
-// Mostra spinner enquanto a operação está em andamento
-document.getElementById('spinner').style.display = 'block';
-
-try {
-    const response = await axios.post(`${apiBaseUrl}/login`, { email, password });
-    sessionStorage.setItem('token', response.data.token);
-    alert("Login realizado com sucesso!");
-    window.location.href = 'index.html';
-} catch (error) {
-    console.error("Erro no login:", error);
-    alert("Erro: " + (error.response?.data.message || "Verifique as credenciais e tente novamente."));
-} finally {
-    // Esconde o spinner após a operação
-    document.getElementById('spinner').style.display = 'none';
-}
-
