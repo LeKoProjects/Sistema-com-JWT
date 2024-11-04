@@ -132,17 +132,3 @@ axios.post('/api/login', {
   console.error('Erro ao autenticar', error);
 });
 ```
-
-## Critérios de Avaliação
-
-Este projeto foi desenvolvido para atender aos seguintes critérios do desafio técnico da Brasyst:
-
-- **Funcionalidade:** Sistema completo e funcional, conforme descrito.
-- **Organização do Código:** Estrutura modular e boas práticas de programação.
-- **Segurança:** Senhas tratadas com hashing e tokens JWT validados em cada requisição.
-- **Separação entre Front-end e Back-end:** Desenvolvidos separadamente e integrados via HTTP.
-- **Documentação:** Instruções detalhadas de configuração e execução do sistema.
-
-## Licença
-
-Este projeto é open-source e distribuído sob a licença MIT.
